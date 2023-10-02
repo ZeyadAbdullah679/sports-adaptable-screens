@@ -119,7 +119,7 @@ fun SportsApp(windowSize: WindowSizeClass) {
             SportsAppBar(
                 isShowingListPage = uiState.isShowingListPage,
                 onBackButtonClick = { viewModel.navigateToListPage() },
-                showNavigationIcon = windowState != SportsWindowState.Expanded
+                showNavigationIcon = contentType == SportsContentType.ListOnly
             )
         }
     ) { innerPadding ->
