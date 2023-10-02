@@ -133,7 +133,14 @@ fun SportsApp(windowSize: WindowSizeClass) {
                     viewModel.navigateToDetailPage()
                 },
                 onBackPressed = { activity.finish() },
-                modifier = Modifier.padding(innerPadding)
+                contentPadding = innerPadding,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = dimensionResource(R.dimen.padding_medium),
+                        start = dimensionResource(R.dimen.padding_medium),
+                        end = dimensionResource(R.dimen.padding_medium),
+                    )
             )
         } else {
             if (uiState.isShowingListPage) {
@@ -180,7 +187,7 @@ fun SportsAppBar(
         title = {
             Text(
                 text =
-                if (!isShowingListPage) {
+                if (!isShowingListPage and showNavigationIcon) {
                     stringResource(R.string.detail_fragment_label)
                 } else {
                     stringResource(R.string.list_fragment_label)
@@ -400,12 +407,15 @@ fun SportsListAndDetails(
     onClick: (Sport) -> Unit,
     modifier: Modifier = Modifier,
     selectedSport: Sport,
+    contentPadding: PaddingValues,
 ) {
     BackHandler {
         onBackPressed()
     }
     Row(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
+            .padding(contentPadding)
     ) {
         SportsList(
             sports = sports,
@@ -415,7 +425,7 @@ fun SportsListAndDetails(
         Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_medium)))
         SportsDetail(
             selectedSport = selectedSport,
-            onBackPressed = {},
+            onBackPressed = onBackPressed,
             contentPadding = PaddingValues(0.dp),
             modifier = modifier.weight(1f)
         )
@@ -455,7 +465,8 @@ fun SportsListAndDetailsPreview() {
                 sports = LocalSportsDataProvider.getSportsData(),
                 onBackPressed = {},
                 onClick = {},
-                selectedSport = LocalSportsDataProvider.defaultSport
+                selectedSport = LocalSportsDataProvider.defaultSport,
+                contentPadding = PaddingValues(0.dp)
             )
         }
     }
