@@ -22,3 +22,10 @@ package com.example.sports.utils
 enum class SportsContentType {
     ListOnly, ListAndDetail
 }
+
+/**
+ * Window state of device.
+ */
+enum class SportsWindowState {
+    Expanded, Medium, Compact
+}
